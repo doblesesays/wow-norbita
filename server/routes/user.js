@@ -17,8 +17,7 @@ async (req, res, next) => {
 
         res.status(200).json({user, token});
     } catch (error) {
-        console.log('error: ', error);
-        res.json(error);
+        res.json({error});
     }
 });
 
@@ -35,7 +34,7 @@ userRoutes.post('/login', async (req, res, next) => {
 
             res.status(200).json({user, token});
         } catch (error) {
-            res.json(error);
+            res.json({error});
         }
     })(req, res, next)
 })

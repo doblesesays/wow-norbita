@@ -18,6 +18,6 @@ export class ProductsService {
       }, (err) => {
         reject(err);
       });
-  });
+    });
   }
 }

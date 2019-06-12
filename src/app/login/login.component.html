@@ -1,0 +1,27 @@
+<header class="mh-100">
+  <app-navbar></app-navbar>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-sm-12">
+        <form class="shadow">
+          <h3 class="text-muted">Login</h3>
+          <label>
+            <p class="label-txt">ENTER YOUR EMAIL</p>
+            <input type="text" class="input" name="email" [(ngModel)]="email" [email]="true" autocomplete="off">
+            <div class="line-box">
+              <div class="line"></div>
+            </div>
+          </label>
+          <label>
+            <p class="label-txt">ENTER YOUR PASSWORD</p>
+            <input type="password" class="input" name="password" [(ngModel)]="password" autocomplete="off">
+            <div class="line-box">
+              <div class="line"></div>
+            </div>
+          </label>
+          <button class="btn btn-light px-5 py-2" (click)="login()">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>

@@ -32,6 +32,7 @@ header a:hover {
 header {
     background: #dd2476;
     background: var(--bggradient);
+    background-size: cover;
 }
 
 header .nav-link:hover {
@@ -179,4 +180,13 @@ header .container .col-md-7 button {
     .navbar {
         margin: 1rem;
     }
+}
+
+#toast-container > .toast-success {
+    background-color: rgba(255, 255, 255, 0.877) !important;
+    color: #ff512f;
+}
+#toast-container > .toast-error {
+    background-color: #dd2476 !important;
+    color: rgba(255, 255, 255, 0.877);
 }
