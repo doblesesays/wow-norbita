@@ -9,11 +9,11 @@ require('../passport/jwt');
 const productRoutes = express.Router();
 
 // api/products
-productRoutes.get('/products',
+productRoutes.get('/products/:category',
 async (req, res, next) => {
     try {
-        const products = await getProducts(req.body.category);
-        res.json({ products });
+        const products = await getProducts(req.params.category);
+        res.json(products);
     } catch (error) {
         res.json({error});
     }
@@ -84,53 +84,51 @@ async function getProducts(category = 'dishwashers', page = '1', sort = 'price_a
         // reset object
         product = {};
 
-        if (i===0 || i===1) {
-            // product img
-            const img = cheerio('div.product-image.col-xs-4.col-sm-4', scrap);
-            var picture = cheerio('picture', img);
-            var source = cheerio('source', picture).prop('data-srcset');
-            product.img = source;
-        
-            // product name
-            const description = cheerio('div.product-description.col-xs-8.col-sm-8', scrap);
-            const name = cheerio('h4 > a', description).text();
-            product.name = name;
-        
-            // product price
-            const price = cheerio('h3.section-title', scrap).text();
-            product.price = price;
-        
-            // product more info
-            const info = cheerio('.item-info-more', scrap).children();
-            const more_info = info.map((i, e) => {
-                return e.next.data;
-            })
-            product.more_info = more_info.map((i, e) => {return e});
-            delete product.more_info.options;
-            delete product.more_info.prevObject;
-        
-            // branding img
-            var div = cheerio('div.col-xs-12.col-sm-7.col-lg-8', scrap);
-            picture = cheerio('picture', div);
-            const brand = cheerio('img', picture).prop('data-src');
-            product.brand = brand;
-        
-            // product warranty
-            div = cheerio('div.sale-default-icon.match-height-always', scrap)
-            picture = cheerio('picture', div);
-            const warranty = cheerio('source', picture).prop('data-srcset');
-            product.warranty = warranty;
-        
-            // info list
-            const ul = cheerio('ul.result-list-item-desc-list.hidden-xs', scrap).children();
-            product.info_list = ul.map((i, e) => {return e.children[0].data})
-            delete product.info_list.options;
-            delete product.info_list.prevObject;
-        
-            // Product object push to products finall array
-            // console.log('product: ', product)
-            products.push(product);
-        }
+        // product img
+        const img = cheerio('div.product-image.col-xs-4.col-sm-4', scrap);
+        var picture = cheerio('picture', img);
+        var source = cheerio('source', picture).prop('data-srcset');
+        product.img = source;
+    
+        // product name
+        const description = cheerio('div.product-description.col-xs-8.col-sm-8', scrap);
+        const name = cheerio('h4 > a', description).text();
+        product.name = name;
+    
+        // product price
+        const price = cheerio('h3.section-title', scrap).text();
+        product.price = price;
+    
+        // product more info
+        const info = cheerio('.item-info-more', scrap).children();
+        const more_info = info.map((i, e) => {
+            return e.next.data;
+        })
+        product.more_info = more_info.map((i, e) => {return e});
+        delete product.more_info.options;
+        delete product.more_info.prevObject;
+    
+        // branding img
+        var div = cheerio('div.col-xs-12.col-sm-7.col-lg-8', scrap);
+        picture = cheerio('picture', div);
+        const brand = cheerio('img', picture).prop('data-src');
+        product.brand = brand;
+    
+        // product warranty
+        div = cheerio('div.sale-default-icon.match-height-always', scrap)
+        picture = cheerio('picture', div);
+        const warranty = cheerio('source', picture).prop('data-srcset');
+        product.warranty = warranty;
+    
+        // info list
+        const ul = cheerio('ul.result-list-item-desc-list.hidden-xs', scrap).children();
+        product.info_list = ul.map((i, e) => {return e.children[0].data})
+        delete product.info_list.options;
+        delete product.info_list.prevObject;
+    
+        // Product object push to products finall array
+        // console.log('product: ', product)
+        products.push(product);
     })
     // console.log('products FINAL: ', products)
     return products;

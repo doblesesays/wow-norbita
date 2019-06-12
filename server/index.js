@@ -4,6 +4,7 @@ const userRoutes = require('./routes/user');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const passport = require('passport');
+const cors = require('cors');
 
 app = express();
 
@@ -16,6 +17,9 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
     done(null, user);
 });
+
+// cors
+app.use(cors());
 
 // Parser
 app.use(express.json());
