@@ -15,6 +15,7 @@ import { ProductsService } from './products.service';
 import { RegisterComponent } from './register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { LoginComponent } from './login/login.component';
     ProductsListComponent,
     RegisterComponent,
     NavbarComponent,
-    LoginComponent
+    LoginComponent,
+    WishlistComponent
   ],
   imports: [
     BrowserModule,

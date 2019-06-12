@@ -1,0 +1,30 @@
+<app-navbar background="gradient"></app-navbar>
+<section class="section-2 container-fluid p-0">
+  <div class="purchase text-center">
+    <h1>Your Wishlist</h1>
+    <div class="cards">
+      <div class="d-flex flex-row justify-content-center flex-wrap">
+        <div class="card shadow" *ngFor="let product of products">
+          <img src="{{ product.brand }}" class="card-img-top brand mt-1">
+          <img src="{{ product.img }}" class="card-img-top product">
+          <img src="{{ product.warranty }}" class="card-img-top warranty mb-3">
+          <div class="card-body">
+            <div class="title">
+              <h5 class="card-title">{{ product.name }}</h5>
+            </div>
+            <ul class="list-group list-group-flush text-muted">
+              <li class="list-group-item">{{ product.info_list[0] }}</li>
+              <li class="list-group-item">{{ product.info_list[1] }}</li>
+              <li class="list-group-item">{{ product.info_list[2] }}</li>
+              <li class="list-group-item">{{ product.info_list[3] }}</li>
+            </ul>
+            <div class="pricing">
+              <h1>{{ product.price }}</h1>
+              <a href="#" class="btn btn-danger px-5 py-2 mb-5 wishlist">Add to wishlist</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,3 +1,4 @@
+import { WishlistComponent } from './wishlist/wishlist.component';
 import { LoginComponent } from './login/login.component';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { RegisterComponent } from './register/register.component';
@@ -18,6 +19,11 @@ const routes: Routes = [
     path: 'login',
     pathMatch: 'full',
     component: LoginComponent
+  },
+  {
+    path: 'wishlist',
+    pathMatch: 'full',
+    component: WishlistComponent
   },
 ];
 
