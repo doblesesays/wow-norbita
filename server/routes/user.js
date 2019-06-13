@@ -39,5 +39,16 @@ userRoutes.post('/login', async (req, res, next) => {
     })(req, res, next)
 })
 
+// api/auth/wishlist/:id
+userRoutes.get('/wishlist/:id',
+async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id).populate('wishlist');
+        res.json(user);
+    } catch (error) {
+        res.json({error});
+    }
+});
+
 
 module.exports = userRoutes;

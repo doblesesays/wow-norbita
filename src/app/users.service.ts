@@ -50,6 +50,16 @@ export class UsersService {
     });
   }
 
+  getUserWishlist(id) {
+    return new Promise((resolve, reject) => {
+      this.http.get(environment.api + '/auth/wishlist' + `/${id}`).toPromise().then((user: any) => {
+        resolve(user);
+      }, (err) => {
+        reject(err);
+      });
+    });
+  }
+
   isLoggedIn() {
     return localStorage.getItem('token') !== null;
   }
@@ -64,5 +74,6 @@ export class UsersService {
     this.user = user;
     localStorage.setItem('user', JSON.stringify(user));
   }
+
 
 }

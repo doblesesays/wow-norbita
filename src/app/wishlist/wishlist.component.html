@@ -1,7 +1,9 @@
 <app-navbar background="gradient"></app-navbar>
 <section class="section-2 container-fluid p-0">
   <div class="purchase text-center">
-    <h1>Your Wishlist</h1>
+    <h1 *ngIf="!user" class="shared">Wishlist Shared By {{ shared }}</h1>
+    <h1 *ngIf="user" class="your-wishlist">Your Wishlist</h1>
+    <h6 *ngIf="user" class="text-muted shared" (click)="clipboard(url+user._id)">Click Here To <span class="share">Share</span> Your Wishlist</h6>
     <div class="cards">
       <div class="d-flex flex-row justify-content-center flex-wrap">
         <div class="card shadow" *ngFor="let product of products">

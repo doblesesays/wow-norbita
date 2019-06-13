@@ -1,5 +1,17 @@
-h1 {
+.your-wishlist {
     padding-top: 10vmin;
+}
+
+.shared {
+    padding-bottom: 3em;
+    cursor: pointer;
+}
+
+.share {
+    font-weight: bold;
+    color: white;
+    padding: 1px 4px;
+    background: linear-gradient(to bottom, #dd2476, #ff512f) !important;
 }
 
 .list-group {
