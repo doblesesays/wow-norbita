@@ -5,3 +5,13 @@ h1 {
 .list-group {
     margin-bottom: 13rem !important;
 }
+
+.btn-danger {
+    background-color: rgba(247, 30, 30, 0.801);
+    border-color: rgba(247, 30, 30, 0.801);
+}
+
+.btn-danger:hover {
+    background-color: rgba(253, 82, 70, 0.712);
+    border-color: rgba(255, 61, 47, 0.712);
+}

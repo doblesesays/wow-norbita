@@ -146,10 +146,15 @@ header .container .col-md-7 button {
     width: 100%;
 }
 
+.btn-danger:hover {
+    background-color: #ff522fb2;
+    border-color: #ff522fb2;
+}
+
 .btn-danger {
     color: #fff;
-    background-color: #ff512f;
-    border-color: #ff512f;
+    background-color: rgba(255, 82, 47, 0.801);
+    border-color: rgba(255, 82, 47, 0.801);
     margin-bottom: 1rem !important;
 }
 

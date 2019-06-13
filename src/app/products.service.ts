@@ -40,6 +40,23 @@ export class ProductsService {
     });
   }
 
+  deleteFromWishlist(product) {
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
+    })
+    return new Promise((resolve, reject) => {
+      this.http.delete(environment.api + '/product' + `/${product._id}`, {headers}).toPromise().then((user: any) => {
+        if(user.error) {
+          reject(user.error);
+        } else {
+          this.usersService.setUser(user);
+          resolve(user);
+        }
+      })
+    });
+  }
+
   getToken() {
     return localStorage.getItem('token');
   }

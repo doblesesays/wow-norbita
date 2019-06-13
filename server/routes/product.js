@@ -34,8 +34,8 @@ async (req, res, next) => {
         var user = await User.findByIdAndUpdate(
             req.user._id,
             { $addToSet: { wishlist: product } },
-            { new: true })
-        .populate('wishlist');
+            { new: true }
+        ).populate('wishlist');
 
         res.json(user); 
     } catch (error) {
@@ -44,17 +44,16 @@ async (req, res, next) => {
 });
 
 // api/product
-productRoutes.delete('/product',
+productRoutes.delete('/product/:id',
     // Middlewares
     passport.authenticate('jwt'),
 async (req, res, next) => {
     try {
-        var user = await User.findById(req.user._id).populate('wishlist');
-        var list = user.wishlist.filter((product) => {
-            return product.name !== req.body.name;
-        })
-        user.wishlist = list;
-        user.save();
+        var user = await User.findByIdAndUpdate(
+            req.user._id,
+            { $pull: { wishlist: req.params.id  } },
+            { new: true },
+        ).populate('wishlist');
 
         res.json(user);
     } catch (error) {
