@@ -33,7 +33,7 @@ async (req, res, next) => {
 
         var user = await User.findByIdAndUpdate(
             req.user._id,
-            { $push: { wishlist: product } },
+            { $addToSet: { wishlist: product } },
             { new: true })
         .populate('wishlist');
 
