@@ -46,7 +46,7 @@ export class ProductsService {
       'Authorization': 'Bearer ' + localStorage.getItem('token'),
     })
     return new Promise((resolve, reject) => {
-      this.http.delete(environment.api + '/product' + `/${product._id}`, {headers}).toPromise().then((user: any) => {
+      this.http.delete(environment.api + '/product' + `/${product._id || product.name}`, {headers}).toPromise().then((user: any) => {
         if(user.error) {
           reject(user.error);
         } else {

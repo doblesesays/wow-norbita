@@ -4,6 +4,7 @@ const cheerio = require('cheerio');
 const Product = require('../models/product');
 const User = require('../models/user');
 const passport = require('passport');
+const mongoose = require('mongoose').Types.ObjectId;
 require('../passport/jwt');
 
 const productRoutes = express.Router();
@@ -49,6 +50,11 @@ productRoutes.delete('/product/:id',
     passport.authenticate('jwt'),
 async (req, res, next) => {
     try {
+        if (!mongoose.isValid(req.params.id)) {
+            var product = await Product.findOne({name:req.params.id});
+            req.params.id = product._id;
+        }
+        
         var user = await User.findByIdAndUpdate(
             req.user._id,
             { $pull: { wishlist: req.params.id  } },

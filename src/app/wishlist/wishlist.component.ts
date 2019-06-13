@@ -22,10 +22,10 @@ export class WishlistComponent implements OnInit {
   async ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user'));
 
-    if (this.user===null) {
-      this.router.navigateByUrl('/');
-    } else {
+    if (this.user) {
       this.products = this.user.wishlist;
+    } else {
+      this.router.navigateByUrl('/');
     }
   }
 
