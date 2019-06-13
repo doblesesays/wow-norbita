@@ -1,6 +1,7 @@
 import { UsersService } from './../users.service';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private userSevice: UsersService,
     private toastr: ToastrService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -22,8 +24,8 @@ export class RegisterComponent implements OnInit {
 
   async register() {
     this.userSevice.register(this.email, this.password).then(user => {
-      console.log(user)
-      this.toastr.success('Welcome!', 'You have successfully registered!');
+      this.toastr.success('You have successfully registered!', 'Welcome!');
+      this.router.navigateByUrl('/');
     })
     .catch(({errors}) => {
       console.log(errors)

@@ -24,8 +24,7 @@ export class LoginComponent implements OnInit {
 
   async login() {
     this.userSevice.login(this.email, this.password).then(user => {
-      console.log(user)
-      this.toastr.success('Welcome back!', 'You have successfully login!');
+      this.toastr.success('You have successfully login!', 'Welcome back!');
       this.router.navigateByUrl('/');
     })
     .catch((error) => {

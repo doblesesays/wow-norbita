@@ -31,9 +31,11 @@ async (req, res, next) => {
             product.save();
         }
 
-        var user = await User.findById(req.user._id);
-        user.wishlist.push(product);
-        user.save();
+        var user = await User.findByIdAndUpdate(
+            req.user._id,
+            { $push: { wishlist: product } },
+            { new: true })
+        .populate('wishlist');
 
         res.json(user); 
     } catch (error) {

@@ -9,14 +9,14 @@ const {
 const UserSchema = new mongoose.Schema({
     email: {
         type: String,
-        required: [true, 'Correo electrónico requerido'],
-        unique: [true, 'El correo electronico ya esta registrado'],
+        required: [true, 'Email required'],
+        unique: [true, 'The email is already registered'],
         index: true,
         validate: emailValidate,
     },
     password: {
         type: String,
-        required: [true, 'Contraseña requerida'],
+        required: [true, 'Password required'],
         validate: passwordValidate,
     },
     wishlist: [{

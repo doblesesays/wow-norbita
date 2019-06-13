@@ -19,11 +19,15 @@ export class UsersService {
 
   register(email, password) {
     return new Promise((resolve, reject) => {
-      this.http.post(environment.api + '/auth/register', { email, password }).toPromise().then((user: any) => {
-        if (user.error) {
-          reject(user.error);
+      this.http.post(environment.api + '/auth/register', { email, password }).toPromise().then((res: any) => {
+        if (res.error) {
+          reject(res.error);
+        } else {
+          this.user = res.user;
+          localStorage.setItem('user', JSON.stringify(res.user));
+          localStorage.setItem('token', res.token);
+          resolve(res);
         }
-        resolve(user);
       });
     });
   }
@@ -34,8 +38,6 @@ export class UsersService {
     })
     return new Promise((resolve, reject) => {
       this.http.post(environment.api + '/auth/login', null, { headers }).toPromise().then((res: any) => {
-        console.log(res.token)
-        console.log(res.user)
         if (res.error) {
           reject(res.error);
         } else {
@@ -56,6 +58,11 @@ export class UsersService {
     localStorage.clear();
     this.user = null;
     this.router.navigateByUrl('/');
+  }
+
+  setUser(user) {
+    this.user = user;
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
 }

@@ -1,6 +1,7 @@
+import { UsersService } from './users.service';
 import { environment } from './../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class ProductsService {
@@ -8,7 +9,8 @@ export class ProductsService {
   private products = [];
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private usersService: UsersService,
   ) { }
 
   getProducts(category = 'dishwashers') {
@@ -19,5 +21,26 @@ export class ProductsService {
         reject(err);
       });
     });
+  }
+
+  addToWishlist(product) {
+    var headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('token')
+    })
+    return new Promise((resolve, reject) => {
+      this.http.post(environment.api + '/product', product, {headers}).toPromise().then((user: any) => {
+        if(user.error) {
+          reject(user.error);
+        } else {
+          this.usersService.setUser(user);
+          resolve(true);
+        }
+      })
+    });
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
   }
 }

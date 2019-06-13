@@ -9,7 +9,7 @@ passport.use(new BasicStrategy(
         try {
             email = email.toLowerCase();
 
-            const user = await User.findOne({ email });
+            const user = await User.findOne({ email }).populate('wishlist');
 
             if (!user) {
                 return callback(boom.unauthorized("El correo electrónico no esta asociado a nuestro servicio"), false)

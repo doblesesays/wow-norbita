@@ -50,7 +50,7 @@
             </ul>
             <div class="pricing">
               <h1>{{ product.price }}</h1>
-              <a href="#" class="btn btn-danger px-5 py-2 mb-5 wishlist">Add to wishlist</a>
+              <a style="cursor: pointer" class="btn btn-danger px-5 py-2 mb-5 wishlist" (click)="addToWishlist(product)">Add to wishlist</a>
             </div>
           </div>
         </div>
