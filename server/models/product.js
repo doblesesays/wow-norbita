@@ -19,7 +19,7 @@ const ProductSchema = new mongoose.Schema({
         type: String,
     },
     price: {
-        type: String,
+        type: Number,
         required: [true, 'Required image'],
     },
     more_info : {
@@ -28,6 +28,10 @@ const ProductSchema = new mongoose.Schema({
     info_list : {
         type: Object,
     },
+    category: {
+        type: String,
+        required: [true, 'Category image'],
+    }
 }, { timestamps: true })
 
 // Validating the unique property attributes

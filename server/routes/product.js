@@ -10,10 +10,22 @@ require('../passport/jwt');
 const productRoutes = express.Router();
 
 // api/products
-productRoutes.get('/products/:category',
+productRoutes.get('/products/:category/:sort',
 async (req, res, next) => {
     try {
-        const products = await getProducts(req.params.category);
+        var sort;
+        if (req.params.sort === 'price_asc') {
+            sort = 'price'
+        } else if (req.params.sort === 'price_desc')  {
+            sort = '-price'
+        } else {
+            sort = 'name'
+        }
+
+        const products = await Product.
+            find({ category: req.params.category  }).
+            sort(sort);
+
         res.json(products);
     } catch (error) {
         res.json({error});
@@ -67,12 +79,17 @@ async (req, res, next) => {
     }
 });
 
+async function syncProducts() {
+    await getProducts('dishwashers');
+    await getProducts('small-appliances');
+}
+
 /** FUNCTION FOR SCRAPPING */
 const baseURL = 'https://www.appliancesdelivered.ie';
 const dishwashers = '/dishwashers?'; // page=1&sort=price_asc
 const appliances = '/small-appliances?' // page=1&sort=price_asc'
 
-async function getProducts(category = 'dishwashers', page = '1', sort = 'price_asc') {
+async function getProducts(category = 'dishwashers', page = '4', sort = 'price_asc') {
 
     // generating the uri
     if (category === 'dishwashers') { var searchURL = dishwashers } else { var searchURL = appliances };
@@ -86,11 +103,15 @@ async function getProducts(category = 'dishwashers', page = '1', sort = 'price_a
     // Getting the html structure and the div with the result products
     const html = await rp({ uri: baseURL + searchURL, timeout: 600000, });
     const results_product = await cheerio('div.search-results-product.row', html);
+    console.log(results_product.length)
 
     // looping over the products
-    results_product.map((i, scrap) => {
+    results_product.map(async (i, scrap) => {
         // reset object
         product = {};
+
+        // setting category
+        product.category = category;
 
         // product img
         const img = cheerio('div.product-image.col-xs-4.col-sm-4', scrap);
@@ -105,7 +126,9 @@ async function getProducts(category = 'dishwashers', page = '1', sort = 'price_a
     
         // product price
         const price = cheerio('h3.section-title', scrap).text();
-        product.price = price;
+        var whole = parseInt(price.substr(1, price.indexOf('.')-1))
+        var decimal = parseInt(price.substr(price.indexOf('.')+1, price.length))
+        product.price = whole+(decimal/100);
     
         // product more info
         const info = cheerio('.item-info-more', scrap).children();
@@ -137,10 +160,11 @@ async function getProducts(category = 'dishwashers', page = '1', sort = 'price_a
         // Product object push to products finall array
         // console.log('product: ', product)
         products.push(product);
+        // await Product.create(product);
     })
     // console.log('products FINAL: ', products)
     return products;
 }
 
-module.exports = productRoutes;
+module.exports = { productRoutes , syncProducts };
 
