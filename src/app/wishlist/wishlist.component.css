@@ -4,6 +4,11 @@
 
 .shared {
     padding-bottom: 3em;
+    cursor: default;
+}
+
+.click {
+    padding-bottom: 3em;
     cursor: pointer;
 }
 

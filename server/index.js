@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 const passport = require('passport');
 const cors = require('cors');
+const path = require('path');
 
 app = express();
 
@@ -21,6 +22,9 @@ passport.deserializeUser((user, done) => {
 // cors
 app.use(cors());
 
+// Client
+app.use(express.static(path.join(__dirname, "public")));
+
 // Parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,7 +32,9 @@ app.use(express.urlencoded({ extended: true }));
 // routes
 app.use('/api/auth', userRoutes);
 app.use('/api', productRoutes);
-// app.use('/', (req, res)=> {res.send('Welcome to this awesome API')});
+app.get('*', (req,res)=>{
+    res.sendFile(path.join(__dirname + '/public/index.html'));
+});
 
 // setting and connecting mongoose
 mongoose.Promise = global.Promise;

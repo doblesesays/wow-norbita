@@ -3,7 +3,7 @@
   <div class="purchase text-center">
     <h1 *ngIf="!user" class="shared">Wishlist Shared By {{ shared }}</h1>
     <h1 *ngIf="user" class="your-wishlist">Your Wishlist</h1>
-    <h6 *ngIf="user" class="text-muted shared" (click)="clipboard(url+user._id)">Click Here To <span class="share">Share</span> Your Wishlist</h6>
+    <h6 *ngIf="user" class="text-muted click" (click)="clipboard(url+user._id)">Click Here To <span class="share">Share</span> Your Wishlist</h6>
     <img *ngIf="products.length == 0" class="spinner" src="../../assets/spinner.svg">
     <div *ngIf="products.length > 0" class="cards">
       <div class="d-flex flex-row justify-content-center flex-wrap">
