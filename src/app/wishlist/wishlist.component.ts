@@ -12,9 +12,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class WishlistComponent implements OnInit {
 
-  public products;
+  public products = [];
   public user;
-  public shared;
+  public shared = null;
   public url = environment.app + '/wishlist;id=';
 
   constructor(
@@ -30,9 +30,7 @@ export class WishlistComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
       // Recibiendo parametros aqui
-      if (this.user) {
-        this.products = this.user.wishlist;
-      } else if (params.id) {
+      if (params.id) {
         this.userService.getUserWishlist(params.id).then(({wishlist, email}) => {
           this.shared = email;
           this.products = wishlist;
@@ -40,7 +38,11 @@ export class WishlistComponent implements OnInit {
         .catch((error) => {
           this.toastr.error(error, 'Error!');
         })
+      } else if (this.user) {
+        this.shared = null;
+        this.products = this.user.wishlist;
       } else {
+        this.shared = null;
         this.router.navigateByUrl('/');
       }
 
