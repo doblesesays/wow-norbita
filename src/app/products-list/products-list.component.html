@@ -9,11 +9,11 @@
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Category
+              {{ category | categoryName }}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">small-appliances</a>
-              <a class="dropdown-item" href="#">dishwashers</a>
+              <a class="dropdown-item" (click)="selectCategory('dishwashers')">{{ 'dishwashers' | categoryName }}</a>
+              <a class="dropdown-item" (click)="selectCategory('small-appliances')">{{ 'small-appliances' | categoryName }}</a>
             </div>
           </div>
         </div>
@@ -22,11 +22,11 @@
           <div class="dropdown">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Sorting
+              {{ sort | sortName }}
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="#">Price</a>
-              <a class="dropdown-item" href="#">Title</a>
+              <a class="dropdown-item" (click)="selectSort('price')">{{ 'price' | sortName }}</a>
+              <a class="dropdown-item" (click)="selectSort('title')">{{ 'title' | sortName }}</a>
             </div>
           </div>
         </div>

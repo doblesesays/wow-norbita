@@ -77,6 +77,7 @@ async function getProducts(category = 'dishwashers', page = '1', sort = 'price_a
     // generating the uri
     if (category === 'dishwashers') { var searchURL = dishwashers } else { var searchURL = appliances };
     searchURL = searchURL + `page=${page}&` + `sort=${sort}`;
+    console.log(baseURL + searchURL)
 
     // final array of products and Object product to push 
     var products = [];

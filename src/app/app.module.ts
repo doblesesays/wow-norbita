@@ -16,6 +16,8 @@ import { RegisterComponent } from './register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { CategoryNamePipe } from './category-name.pipe';
+import { SortNamePipe } from './sort-name.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     RegisterComponent,
     NavbarComponent,
     LoginComponent,
-    WishlistComponent
+    WishlistComponent,
+    CategoryNamePipe,
+    SortNamePipe
   ],
   imports: [
     BrowserModule,

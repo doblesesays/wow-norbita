@@ -11,3 +11,7 @@
 .spinner {
     padding: 0 0 10rem 0;
 }
+
+.dropdown-menu {
+    cursor: pointer;
+}

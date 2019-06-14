@@ -11,6 +11,8 @@ export class ProductsListComponent implements OnInit {
 
   public products;
   public user;
+  public category = 'dishwashers';
+  public sort = 'price';
 
   constructor(
     private productsService: ProductsService,
@@ -62,6 +64,18 @@ export class ProductsListComponent implements OnInit {
       .catch((error) => {
         this.toastr.error(error, 'Error!');
       })
+  }
+
+  async selectCategory(category) {
+    this.products = [];
+    this.category = category;
+    console.log(this.category)
+    this.products = await this.productsService.getProducts(this.category);
+  }
+
+  async selectSort(sort) {
+    this.sort = sort;
+    console.log(this.sort)
   }
 
 }
