@@ -13,6 +13,7 @@ export class ProductsListComponent implements OnInit {
   public user;
   public category = 'dishwashers';
   public sort = 'price_asc';
+  public p: number = 1;
 
   constructor(
     private productsService: ProductsService,

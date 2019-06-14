@@ -6,8 +6,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 @Injectable()
 export class ProductsService {
 
-  private products = [];
-
   constructor(
     private http: HttpClient,
     private usersService: UsersService,

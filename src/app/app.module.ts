@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { ToastrModule } from 'ngx-toastr';
 
@@ -42,7 +43,8 @@ import { SortNamePipe } from './sort-name.pipe';
       maxOpened: 2,
       preventDuplicates: true,
       autoDismiss: true,
-    })
+    }),
+    NgxPaginationModule,
   ],
   providers: [
     ProductsService,

@@ -195,3 +195,13 @@ header .container .col-md-7 button {
     background-color: #dd2476 !important;
     color: rgba(255, 255, 255, 0.877);
 }
+
+/* Paginate  */
+.ngx-pagination {
+    padding-left: 0 !important;
+    margin: 2rem 0 !important;
+}
+
+.ngx-pagination .current {
+    background: rgba(255, 82, 47, 0.801) !important;
+}

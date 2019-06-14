@@ -16,6 +16,7 @@ export class WishlistComponent implements OnInit {
   public user;
   public shared = null;
   public url = environment.app + '/wishlist;id=';
+  public p: number = 1;
 
   constructor(
     private productsService: ProductsService,
