@@ -32,7 +32,8 @@
         </div>
       </div>
     </div>
-    <div class="cards">
+    <img *ngIf="products.length == 0" class="spinner" src="../../assets/spinner.svg">
+    <div *ngIf="products.length > 0" class="cards">
       <div class="d-flex flex-row justify-content-center flex-wrap">
         <div class="card shadow" *ngFor="let product of products">
           <img src="{{ product.brand }}" class="card-img-top brand mt-1">

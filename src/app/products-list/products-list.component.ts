@@ -18,6 +18,8 @@ export class ProductsListComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
+    this.products = [];
+
     this.user = JSON.parse(localStorage.getItem('user'));
     if (this.user) {
       this.products = await this.getProductsWithWishlist();

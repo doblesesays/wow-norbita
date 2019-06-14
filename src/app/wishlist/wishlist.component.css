@@ -27,3 +27,7 @@
     background-color: rgba(253, 82, 70, 0.712);
     border-color: rgba(255, 61, 47, 0.712);
 }
+
+.spinner {
+    padding: 0 0 10rem 0;
+}

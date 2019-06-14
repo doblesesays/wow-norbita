@@ -4,7 +4,8 @@
     <h1 *ngIf="!user" class="shared">Wishlist Shared By {{ shared }}</h1>
     <h1 *ngIf="user" class="your-wishlist">Your Wishlist</h1>
     <h6 *ngIf="user" class="text-muted shared" (click)="clipboard(url+user._id)">Click Here To <span class="share">Share</span> Your Wishlist</h6>
-    <div class="cards">
+    <img *ngIf="products.length == 0" class="spinner" src="../../assets/spinner.svg">
+    <div *ngIf="products.length > 0" class="cards">
       <div class="d-flex flex-row justify-content-center flex-wrap">
         <div class="card shadow" *ngFor="let product of products">
           <img src="{{ product.brand }}" class="card-img-top brand mt-1">
