@@ -12,7 +12,7 @@ export class ProductsListComponent implements OnInit {
   public products;
   public user;
   public category = 'dishwashers';
-  public sort = 'price';
+  public sort = 'price_asc';
 
   constructor(
     private productsService: ProductsService,
@@ -27,7 +27,7 @@ export class ProductsListComponent implements OnInit {
       this.products = await this.getProductsWithWishlist();
       console.log(this.products)
     } else {
-      this.products = await this.productsService.getProducts(this.category);
+      this.products = await this.productsService.getProducts(this.category, this.sort);
       console.log(this.products)
     }
   }
@@ -44,7 +44,7 @@ export class ProductsListComponent implements OnInit {
 
   async getProductsWithWishlist() {
     var products;
-    products = await this.productsService.getProducts(this.category);
+    products = await this.productsService.getProducts(this.category, this.sort);
     var list = products.map((e) => {
       this.user.wishlist.forEach(element => {
         if (e.name === element.name) {
@@ -70,12 +70,14 @@ export class ProductsListComponent implements OnInit {
     this.products = [];
     this.category = category;
     console.log(this.category)
-    this.products = await this.productsService.getProducts(this.category);
+    this.products = await this.productsService.getProducts(this.category, this.sort);
   }
 
   async selectSort(sort) {
+    this.products = [];
     this.sort = sort;
     console.log(this.sort)
+    this.products = await this.productsService.getProducts(this.category, this.sort);
   }
 
 }

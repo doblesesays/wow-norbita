@@ -6,10 +6,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SortNamePipe implements PipeTransform {
 
   transform(sort: String): any {
-    if (sort === 'price') {
-      return 'Price'
-    } else {
-      return 'Title'
+    if (sort === 'price_asc') {
+      return 'Price Asc'
+    } else if (sort === 'price_desc')  {
+      return 'Price Desc'
+    }else{
+      return 'Name'
     }
   }
 

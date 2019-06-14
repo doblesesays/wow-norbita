@@ -13,9 +13,9 @@ export class ProductsService {
     private usersService: UsersService,
   ) { }
 
-  getProducts(category = 'dishwashers') {
+  getProducts(category = 'dishwashers', sort = 'price_asc') {
     return new Promise((resolve, reject) => {
-      this.http.get(environment.api + '/products' + `/${category}`).toPromise().then((products: any) => {
+      this.http.get(environment.api + '/products' + `/${category}` + `/${sort}`).toPromise().then((products: any) => {
         resolve(products);
       }, (err) => {
         reject(err);
