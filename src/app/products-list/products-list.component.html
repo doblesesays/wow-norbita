@@ -44,10 +44,10 @@
               <h5 class="card-title">{{ product.name }}</h5>
             </div>
             <ul class="list-group list-group-flush text-muted">
-              <li class="list-group-item">{{ product.info_list[0] }}</li>
-              <li class="list-group-item">{{ product.info_list[1] }}</li>
-              <li class="list-group-item">{{ product.info_list[2] }}</li>
-              <li class="list-group-item">{{ product.info_list[3] }}</li>
+              <li class="list-group-item" *ngIf="product.info_list[0]">{{ product.info_list[0] }}</li>
+              <li class="list-group-item" *ngIf="product.info_list[1]">{{ product.info_list[1] }}</li>
+              <li class="list-group-item" *ngIf="product.info_list[2]">{{ product.info_list[2] }}</li>
+              <li class="list-group-item" *ngIf="product.info_list[3]">{{ product.info_list[3] }}</li>
             </ul>
             <div class="pricing">
               <h1>{{ product.price }}</h1>

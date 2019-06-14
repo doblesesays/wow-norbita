@@ -27,7 +27,7 @@ export class ProductsListComponent implements OnInit {
       this.products = await this.getProductsWithWishlist();
       console.log(this.products)
     } else {
-      this.products = await this.productsService.getProducts();
+      this.products = await this.productsService.getProducts(this.category);
       console.log(this.products)
     }
   }
@@ -44,7 +44,7 @@ export class ProductsListComponent implements OnInit {
 
   async getProductsWithWishlist() {
     var products;
-    products = await this.productsService.getProducts();
+    products = await this.productsService.getProducts(this.category);
     var list = products.map((e) => {
       this.user.wishlist.forEach(element => {
         if (e.name === element.name) {
