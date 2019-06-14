@@ -19,6 +19,8 @@ import { LoginComponent } from './login/login.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { CategoryNamePipe } from './category-name.pipe';
 import { SortNamePipe } from './sort-name.pipe';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { SortNamePipe } from './sort-name.pipe';
       autoDismiss: true,
     }),
     NgxPaginationModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     ProductsService,

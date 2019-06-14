@@ -35,6 +35,10 @@ export class ProductsService {
           resolve(true);
         }
       })
+      .catch(err => {
+        console.log(err)
+        reject(err);
+      })
     });
   }
 
@@ -51,6 +55,10 @@ export class ProductsService {
           this.usersService.setUser(user);
           resolve(user);
         }
+      })
+      .catch(err => {
+        console.log(err)
+        reject(err);
       })
     });
   }
