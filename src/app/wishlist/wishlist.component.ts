@@ -17,6 +17,7 @@ export class WishlistComponent implements OnInit {
   public shared = null;
   public url = environment.app + '/wishlist;id=';
   public p: number = 1;
+  public loading = true;
 
   constructor(
     private productsService: ProductsService,
@@ -35,6 +36,7 @@ export class WishlistComponent implements OnInit {
         this.userService.getUserWishlist(params.id).then(({wishlist, email}) => {
           this.shared = email;
           this.products = wishlist;
+          this.loading = false;
         })
         .catch((error) => {
           this.toastr.error(error, 'Error!');
@@ -42,6 +44,7 @@ export class WishlistComponent implements OnInit {
       } else if (this.user) {
         this.shared = null;
         this.products = this.user.wishlist;
+        this.loading = false;
       } else {
         this.shared = null;
         this.router.navigateByUrl('/');
@@ -51,8 +54,10 @@ export class WishlistComponent implements OnInit {
   }
 
   async deleteFromWishlist(product) {
+    this.loading = true;
     this.productsService.deleteFromWishlist(product).then(({wishlist}) => {
       this.products = wishlist;
+      this.loading = false;
       this.toastr.success('You have removed the product from your wish list!', 'Done!');
     })
     .catch((error) => {

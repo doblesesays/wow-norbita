@@ -14,6 +14,7 @@ export class ProductsListComponent implements OnInit {
   public category = 'dishwashers';
   public sort = 'price_asc';
   public p: number = 1;
+  public loading = true;
 
   constructor(
     private productsService: ProductsService,
@@ -27,9 +28,11 @@ export class ProductsListComponent implements OnInit {
     if (this.user) {
       this.products = await this.getProductsWithWishlist();
       console.log(this.products)
+      this.loading = false;
     } else {
       this.products = await this.productsService.getProducts(this.category, this.sort);
       console.log(this.products)
+      this.loading = false;
     }
   }
 
@@ -68,17 +71,21 @@ export class ProductsListComponent implements OnInit {
   }
 
   async selectCategory(category) {
+    this.loading = true;
     this.products = [];
     this.category = category;
     console.log(this.category)
     this.products = await this.productsService.getProducts(this.category, this.sort);
+    this.loading = false;
   }
 
   async selectSort(sort) {
+    this.loading = true;
     this.products = [];
     this.sort = sort;
     console.log(this.sort)
     this.products = await this.productsService.getProducts(this.category, this.sort);
+    this.loading = false;
   }
 
 }

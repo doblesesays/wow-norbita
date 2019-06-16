@@ -4,8 +4,9 @@
     <h1 *ngIf="shared" class="shared">Wishlist Shared By {{ shared }}</h1>
     <h1 *ngIf="user && !shared" class="your-wishlist">Your Wishlist</h1>
     <h6 *ngIf="user && !shared" class="text-muted click" (click)="clipboard(url+user._id)">Click Here To <span class="share">Share</span> Your Wishlist</h6>
-    <img *ngIf="products.length == 0" class="spinner" src="../../assets/spinner.svg">
-    <div *ngIf="products.length > 0" class="cards">
+    <img *ngIf="loading" class="spinner" src="../../assets/spinner.svg">
+    <h1  *ngIf="!loading && products.length == 0" class="pb-5">No content</h1>
+    <div *ngIf="!loading && products.length > 0" class="cards">
       <div class="d-flex flex-row justify-content-center flex-wrap">
         <div class="card shadow" *ngFor="let product of products | paginate: { itemsPerPage: 9, currentPage: p }">
           <img src="{{ product.brand }}" class="card-img-top brand mt-1">
@@ -29,6 +30,6 @@
         </div>
       </div>
     </div>
-    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    <pagination-controls *ngIf="!loading && products.length > 0" (pageChange)="p = $event"></pagination-controls>
   </div>
 </section>
