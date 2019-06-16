@@ -41,25 +41,36 @@ app.get('*', (req,res)=>{
 // setting and connecting mongoose
 mongoose.Promise = global.Promise;
 
-// starting the server and fullfilled the database with products
+// starting the client instance
 async function start () {
     await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false });
-    // Check if the initial load was already made (for development purposes)
-    if (await mongoose.connection.db.collection('products').countDocuments() < 1) {
-        await syncProducts();
-    }
     const server = app.listen(process.env.PORT_SERVE || 3000, () => console.log(`Server ready. Listening on port ${server.address().port}.`));
 }
 
-start();
+start().then(() => {
+    // Strarting the Scraping instance
+    sync.listen(process.env.PORT_SYNC || 8000, async () => {
+        // Check if the initial load was already made (for development purposes)
+        if (await mongoose.connection.db.collection('products').countDocuments() < 1) {
+            await syncProducts();
+        }
+        
+        // Sync new data from AppliancesDelivered.ie EVERY DAY at 00:00 Hours.
+        cron.schedule('0 0 * * *', async () => {
+            console.log('Sync new data from AppliancesDelivered.ie');
+            await syncProducts();
+        }, {
+            scheduled: false,
+            timezone: "Europe/London"
+        });
 
-sync.listen(process.env.PORT_SYNC || 8000, () => {
-    // Sync new data from AppliancesDelivered.ie EVERY DAY at 1750 Hours London Time.
-    cron.schedule('50 17 * * *', async () => {
-        console.log('Sync new data from AppliancesDelivered.ie');
-        await syncProducts();
-    }, {
-        scheduled: false,
-        timezone: "Europe/London"
+        // every minute (for development purposes) 
+        /* cron.schedule('* * * * *', async () => {
+            console.log('Sync new data from AppliancesDelivered.ie');
+            await syncProducts();
+        }, {
+            scheduled: false,
+            timezone: "Europe/London"
+        }); */
     });
-});
+})

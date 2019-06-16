@@ -100,10 +100,13 @@ async function getProducts(category = 'dishwashers', page = '0', sort = 'price_a
         var product = {};
     
         // Getting the html structure and the div with the result products
-        const html = await rp({ uri: baseURL + searchURL + `page=${page}&` + `sort=${sort}`, timeout: 600000, });
+        var uri = baseURL + searchURL + `page=${page}&` + `sort=${sort}`;
+        const html = await rp({ uri, timeout: 600000, }).catch(err => {
+            console.log(`Scraping aborted. Err on ${uri}: ${err.message}.`);
+            load = false;
+        });
         const results_product = await cheerio('div.search-results-product.row', html);
-        console.log(baseURL + searchURL + `page=${page}&` + `sort=${sort}`)
-        console.log(results_product.length)
+        console.log(`Request to ${uri} got ${results_product.length} products`);
     
         if (results_product.length > 0) {
             // looping over the products
